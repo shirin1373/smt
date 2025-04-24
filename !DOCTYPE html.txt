@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>فرم ثبت اطلاعات سلامتی</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: sans-serif; background: #f4f4f4; padding: 20px; direction: rtl; }
+    form { background: white; padding: 20px; border-radius: 12px; max-width: 600px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input, select, button { width: 100%; margin: 8px 0; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem; }
+    button { background: #4CAF50; color: white; font-weight: bold; cursor: pointer; }
+    h2 { text-align: center; margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+
+  <form id="nutritionForm">
+    <h2>فرم ثبت اطلاعات سلامت و تغذیه</h2>
+
+    <label>شماره پرسنلی:</label>
+    <input type="number" name="staff_id" required>
+
+    <label>نام و نام خانوادگی:</label>
+    <input type="text" name="name" required>
+
+    <label>سن:</label>
+    <input type="number" name="age" required>
+
+    <label>جنسیت:</label>
+    <select name="gender">
+      <option>مرد</option>
+      <option>زن</option>
+    </select>
+
+    <label>قد (سانتی‌متر):</label>
+    <input type="number" name="height" required>
+
+    <label>وزن (کیلوگرم):</label>
+    <input type="number" name="weight" required>
+
+    <label>عنوان شغلی:</label>
+    <select name="job_title">
+      <option>کارگر</option>
+      <option>سرکارگر</option>
+      <option>کاردان</option>
+      <option>کارشناس</option>
+      <option>مسئول کارشناس</option>
+      <option>مدیر / رئیس واحد</option>
+    </select>
+
+    <label>محل فعالیت:</label>
+    <select name="location">
+      <option>اداری</option>
+      <option>تولیدی</option>
+      <option>مدیریتی</option>
+    </select>
+
+    <label>ساعات کاری:</label>
+    <select name="work_hours">
+      <option>کمتر از ۶ ساعت</option>
+      <option>۶ تا ۸ ساعت</option>
+      <option>بیش از ۸ ساعت</option>
+    </select>
+
+    <label>فعالیت بدنی:</label>
+    <select name="activity">
+      <option>پایین</option>
+      <option>متوسط</option>
+      <option>بالا</option>
+    </select>
+
+    <label>صبحانه می‌خورید؟</label>
+    <select name="breakfast">
+      <option>بله</option>
+      <option>خیر</option>
+    </select>
+
+    <label>چند وعده غذا می‌خورید؟</label>
+    <select name="meals">
+      <option>۲ وعده</option>
+      <option>۳ وعده</option>
+      <option>بیشتر از ۳ وعده</option>
+    </select>
+
+    <label>آب روزانه:</label>
+    <select name="water">
+      <option>کمتر از ۴ لیوان</option>
+      <option>۴ تا ۸ لیوان</option>
+      <option>بیش از ۸ لیوان</option>
+    </select>
+
+    <label>غذاهای چرب:</label>
+    <select name="fat">
+      <option>زیاد</option>
+      <option>متوسط</option>
+      <option>کم</option>
+    </select>
+
+    <label>سابقه بیماری:</label>
+    <select name="illness">
+      <option>ندارم</option>
+      <option>فشار خون</option>
+      <option>دیابت</option>
+      <option>بیماری قلبی</option>
+      <option>سایر</option>
+    </select>
+
+    <label>دارو مصرف می‌کنید؟</label>
+    <select name="medication">
+      <option>بله</option>
+      <option>خیر</option>
+    </select>
+
+    <label>سابقه خانوادگی بیماری‌های متابولیک:</label>
+    <select name="family_history">
+      <option>بله</option>
+      <option>خیر</option>
+    </select>
+
+    <button type="submit">ارسال</button>
+  </form>
+
+  <script>
+    document.getElementById("nutritionForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const formData = Object.fromEntries(new FormData(e.target));
+      const res = await fetch("http://localhost:8000/users/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      });
+      alert(res.ok ? "اطلاعات با موفقیت ثبت شد." : "خطا در ثبت اطلاعات.");
+    });
+  </script>
+
+</body>
+</html>
